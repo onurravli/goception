@@ -1,0 +1,21 @@
+// Testing function type errors
+
+// Define a function with type annotations
+const add = function(a: int, b: int): int {
+  return a + b;
+};
+
+// Error: Passing a string to a function expecting an int
+print(add("not a number", 5));
+
+// Define a function with a return type
+const getName = function(): string {
+  return "Alice";
+};
+
+// Define a function with the wrong return type
+const getAge = function(): string {
+  return 30; // Should be a string, but returning an int
+};
+
+print(getAge()); 

@@ -1,0 +1,58 @@
+// Advanced type annotations example
+
+// Basic type annotations
+const PI: int = 3;
+print("PI: " + PI);
+
+const NAME: string = "Goception";
+print("NAME: " + NAME);
+
+const IS_AWESOME: bool = true;
+print("IS_AWESOME: " + IS_AWESOME);
+
+// Type annotations with variable reassignment
+var counter: int = 0;
+print("Counter: " + counter);
+
+counter = counter + 1;
+print("Counter: " + counter);
+
+// Type annotations with nested expressions
+var result: int = PI * 5 + 2;
+print("Result: " + result);
+
+// Type annotations in functions
+const add = function(a: int, b: int): int {
+  return a + b;
+};
+
+print("5 + 3 = " + add(5, 3));
+
+// Multiple parameter types
+const greet = function(name: string, age: int): string {
+  return "Hello, " + name + "! You are " + age + " years old.";
+};
+
+print(greet("Alice", 30));
+
+// Function that takes a function as a parameter
+const apply = function(fn: function, x: int): int {
+  return fn(x);
+};
+
+const double = function(x: int): int {
+  return x * 2;
+};
+
+print("Double of 7: " + apply(double, 7));
+
+// Factorial with type annotations
+const factorial = function(n: int): int {
+  if (n <= 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+};
+
+print("Factorial of 5: " + factorial(5)); 

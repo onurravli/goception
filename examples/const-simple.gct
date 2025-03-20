@@ -1,0 +1,6 @@
+// Simple constant test
+const x = 5;
+print(x);
+
+var y = 10;
+print(y); 

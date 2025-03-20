@@ -1,0 +1,5 @@
+// Testing type errors
+
+// Type error: attempting to assign a string to an int constant
+const NUM: int = "not a number"; // This should fail at runtime
+print(NUM); 

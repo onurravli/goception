@@ -1,0 +1,8 @@
+// Testing return type errors
+
+// Define a function with the wrong return type
+const getAge = function(): string {
+  return 30; // Should be a string, but returning an int
+};
+
+print(getAge()); 

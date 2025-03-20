@@ -1,0 +1,25 @@
+// Testing const vs var
+
+// Define a constant
+const PI = 3;
+print(PI);
+
+// Define a variable that can be reassigned
+var count = 10;
+print(count);
+
+// Reassign the variable
+count = 20;
+print(count);
+
+// Attempt to reassign a constant (should cause an error)
+PI = 4;
+print("This line should not execute");
+
+// Another constant
+const MAX_USERS = 100;
+print(MAX_USERS);
+
+// Define a function as a constant
+const square = function(x) { return x * x; };
+print(square(5)); 

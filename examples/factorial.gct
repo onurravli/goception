@@ -1,0 +1,32 @@
+// Factorial calculation using recursion
+
+const factorial = function(n) {
+  if (n <= 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+};
+
+// Calculate some factorials
+var result = factorial(5);
+print("Factorial of 5 is: " + result);
+
+// Update the result variable
+result = factorial(10);
+print("Factorial of 10 is: " + result);
+
+// Test boolean expressions
+const a = 5;
+const b = 10;
+print("Is a < b? " + (a < b));
+print("Is a > b? " + (a > b));
+print("Is a == b? " + (a == b));
+print("Is a != b? " + (a != b));
+print("Is a <= b? " + (a <= b));
+print("Is a >= b? " + (a >= b));
+
+// Test string operations
+const name = "Goception";
+const greeting = "Hello, " + name + "!";
+print(greeting); 

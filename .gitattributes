@@ -1,0 +1,32 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Go files should be handled as text with LF line endings
+*.go text eol=lf
+*.gct text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.txt text eol=lf
+
+# Shell scripts should use LF
+*.sh text eol=lf
+
+# Executables should be treated as binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+goception binary
+
+# Images should be treated as binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+
+# Exclude files from exports
+.gitattributes export-ignore
+.gitignore export-ignore
+.github export-ignore 

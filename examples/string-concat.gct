@@ -1,0 +1,33 @@
+// Basic string concatenation
+const greeting = "Hello";
+var message = greeting + ", World!";
+print(message);
+
+// Reassign the variable with a new concatenation
+message = greeting + " there!";
+print(message);
+
+// Concatenation with other types
+const count = 5;
+message = "The count is: " + count;
+print(message);
+
+// Concatenation with boolean
+const isTrue = true;
+message = "The boolean value is: " + isTrue;
+print(message);
+
+// Concatenation with function return value
+const add = function(a, b) {
+  return a + b;
+};
+
+message = "2 + 3 = " + add(2, 3);
+print(message);
+
+// Nested concatenation
+const firstName = "John";
+const lastName = "Doe";
+const age = 30;
+message = "Name: " + firstName + " " + lastName + ", Age: " + age;
+print(message); 

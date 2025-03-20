@@ -1,0 +1,20 @@
+// Hello world program in Goception
+
+var greeting = "Hello, world!";
+print(greeting);
+
+// Simple function example
+const add = function(a, b) {
+  a + b;
+};
+
+var result = add(5, 10);
+print(result);
+
+// Conditional logic
+const x = 10;
+if (x > 5) {
+  print("x is greater than 5");
+} else {
+  print("x is less than or equal to 5");
+} 

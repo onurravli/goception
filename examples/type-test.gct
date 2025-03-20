@@ -1,0 +1,22 @@
+// Testing type annotations
+const PI: int = 3;
+print(PI);
+
+var count: int = 10;
+print(count);
+
+count = 20;
+print(count);
+
+const greeting: string = "Hello, world!";
+print(greeting);
+
+const isTrue: bool = true;
+print(isTrue);
+
+// Function with type annotations
+const square = function(x: int): int {
+  return x * x;
+};
+
+print(square(5)); 
