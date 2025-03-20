@@ -94,4 +94,4 @@ print(greet("Goception"));
 
 ## License
 
-MIT
+WTFPL
