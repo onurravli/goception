@@ -1,0 +1,18 @@
+// Import the math utility functions
+import "math-utils.gct";
+
+// Use the imported functions and constants
+print("Square of 5: " + square(5));
+print("Cube of 3: " + cube(3));
+print("Is 10 even? " + isEven(10));
+print("Is 7 odd? " + isOdd(7));
+print("Factorial of 4: " + factorial(4));
+print("PI: " + PI);
+print("E: " + E);
+
+// Define our own functions that use the imported ones
+const areaOfCircle = function(radius) {
+  return PI * square(radius);
+};
+
+print("Area of circle with radius 4: " + areaOfCircle(4)); 

@@ -1,0 +1,6 @@
+// This will trigger a circular import
+import "module-a.gct";
+
+// Try to use functions from the modules
+print("Combined message: " + combineMessages());
+print("Message from Module B: " + messageB); 

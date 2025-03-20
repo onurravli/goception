@@ -1,0 +1,21 @@
+// Import both utility files
+import "math-utils.gct";
+import "string-utils.gct";
+
+// Use math functions
+var num = 5;
+print("Square of " + num + ": " + square(num));
+
+// Use string functions
+var text = "Hello, Goception!";
+print(toUpper(text));
+print(toLower(text));
+print("Repeated text: " + repeat("*", 10));
+
+// Combine both types of utilities
+const formatFactorial = function(n) {
+  var fact = factorial(n);
+  return repeat("-", 5) + " Factorial of " + n + " is " + fact + " " + repeat("-", 5);
+};
+
+print(formatFactorial(5)); 

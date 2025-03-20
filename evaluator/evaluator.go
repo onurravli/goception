@@ -2,16 +2,27 @@ package evaluator
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"strconv"
+	"strings"
 
 	"github.com/onurravli/goception/ast"
+	"github.com/onurravli/goception/lexer"
 	"github.com/onurravli/goception/object"
+	"github.com/onurravli/goception/parser"
 )
 
 var (
 	NULL  = &object.Null{}
 	TRUE  = &object.Boolean{Value: true}
 	FALSE = &object.Boolean{Value: false}
+
+	// Track imported files to prevent circular imports
+	importedFiles = make(map[string]bool)
+
+	// Cache of imported file contents to avoid reading the same file multiple times
+	importCache = make(map[string]string)
 )
 
 // Eval evaluates the given node and returns an object
@@ -58,6 +69,8 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 			return val
 		}
 		return &object.ReturnValue{Value: val}
+	case *ast.ImportStatement:
+		return evalImportStatement(node, env)
 
 	// Expressions
 	case *ast.IntegerLiteral:
@@ -275,6 +288,8 @@ func evalIntegerInfixExpression(operator string, left, right object.Object) obje
 		return &object.Integer{Value: leftVal * rightVal}
 	case "/":
 		return &object.Integer{Value: leftVal / rightVal}
+	case "%":
+		return &object.Integer{Value: leftVal % rightVal}
 	case "<":
 		return nativeBoolToBooleanObject(leftVal < rightVal)
 	case ">":
@@ -490,4 +505,118 @@ func checkType(obj object.Object, typeName string) bool {
 	default:
 		return true // Unknown types are accepted for now
 	}
+}
+
+// evalImportStatement imports and evaluates a file
+func evalImportStatement(node *ast.ImportStatement, env *object.Environment) object.Object {
+	filePath := node.Path.Value
+
+	// Check if the file has a .gct extension, add if needed
+	if !strings.HasSuffix(filePath, ".gct") {
+		filePath = filePath + ".gct"
+	}
+
+	fmt.Printf("Importing file: %s\n", filePath)
+
+	// Use absolute path for tracking imports
+	absPath, err := filepath.Abs(filePath)
+	if err != nil {
+		return newError("could not resolve absolute path: %s", err.Error())
+	}
+
+	fmt.Printf("Absolute path: %s\n", absPath)
+
+	// Check for circular imports
+	if importedFiles[absPath] {
+		// File is already being imported, skip to prevent circularity
+		fmt.Printf("Skipping circular import of %s\n", filePath)
+		return NULL
+	}
+
+	// Mark file as being imported
+	importedFiles[absPath] = true
+	defer func() {
+		// After processing, unmark the file to allow it to be imported again in other contexts
+		importedFiles[absPath] = false
+	}()
+
+	var input string
+	var loadedFrom string
+
+	// Check cache first
+	if cachedInput, ok := importCache[absPath]; ok {
+		input = cachedInput
+		loadedFrom = "cache"
+	} else {
+		// First, try to read from the current directory
+		fileBytes, err := os.ReadFile(filePath)
+		if err != nil {
+			// If not found, try the examples directory
+			examplesPath := filepath.Join("examples", filePath)
+			fmt.Printf("Trying examples path: %s\n", examplesPath)
+			fileBytes, err = os.ReadFile(examplesPath)
+			if err != nil {
+				// Try with just the basename in examples directory
+				baseName := filepath.Base(filePath)
+				examplesPath = filepath.Join("examples", baseName)
+				fmt.Printf("Trying examples path with basename: %s\n", examplesPath)
+				fileBytes, err = os.ReadFile(examplesPath)
+				if err != nil {
+					return newError("could not import file: %s. Tried: %s, %s, and %s",
+						err.Error(), filePath, filepath.Join("examples", filePath), examplesPath)
+				}
+				loadedFrom = "examples with basename"
+			} else {
+				loadedFrom = "examples"
+			}
+
+			// Update absPath to the examples path
+			absPath, _ = filepath.Abs(examplesPath)
+		} else {
+			loadedFrom = "current directory"
+		}
+
+		input = string(fileBytes)
+		fmt.Printf("Loaded file from: %s, length: %d bytes\n", loadedFrom, len(input))
+
+		// Cache the file content
+		importCache[absPath] = input
+	}
+
+	l := lexer.New(input)
+	p := parser.New(l)
+	program := p.ParseProgram()
+
+	if len(p.Errors()) > 0 {
+		var errMsg strings.Builder
+		errMsg.WriteString(fmt.Sprintf("parser errors in imported file %s (loaded from %s):\n", filePath, loadedFrom))
+		for _, msg := range p.Errors() {
+			errMsg.WriteString(fmt.Sprintf("\t%s\n", msg))
+		}
+		fmt.Printf("First few characters of file: %q\n", input[:min(20, len(input))])
+		return newError(errMsg.String())
+	}
+
+	// Create new enclosed environment for the imported file
+	importedEnv := object.NewEnclosedEnvironment(env)
+
+	// Evaluate the imported program
+	result := Eval(program, importedEnv)
+	if isError(result) {
+		return result
+	}
+
+	// Copy all variables from imported environment to the current environment
+	importedEnv.ExportTo(env)
+
+	fmt.Printf("Successfully imported: %s\n", filePath)
+	return NULL
+}
+
+// min returns the smaller of two integers
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }

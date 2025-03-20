@@ -1,0 +1,11 @@
+// This is a simple example of a function in Goception
+
+const hello = function(name: string): string {
+	return "Hello, " + name;
+}
+
+const main = function(): void {
+	print(hello("Onur"));
+}
+
+main();

@@ -1,0 +1,6 @@
+// Test importing a simple file
+import "simple-import.gct";
+
+print("x = " + x);
+print("y = " + y);
+print("x + y = " + (x + y)); 

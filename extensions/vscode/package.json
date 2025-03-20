@@ -2,7 +2,7 @@
   "name": "goception-vscode",
   "displayName": "Goception Language Support",
   "description": "Syntax highlighting and language support for Goception",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher": "goception-team",
   "engines": {
     "vscode": "^1.60.0"

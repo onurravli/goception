@@ -35,6 +35,7 @@ var precedences = map[token.TokenType]int{
 	token.MINUS:    SUM,
 	token.SLASH:    PRODUCT,
 	token.ASTERISK: PRODUCT,
+	token.MODULO:   PRODUCT,
 	token.LPAREN:   CALL,
 	token.ASSIGN:   ASSIGNMENT,
 }
@@ -82,6 +83,7 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerInfix(token.MINUS, p.parseInfixExpression)
 	p.registerInfix(token.SLASH, p.parseInfixExpression)
 	p.registerInfix(token.ASTERISK, p.parseInfixExpression)
+	p.registerInfix(token.MODULO, p.parseInfixExpression)
 	p.registerInfix(token.EQ, p.parseInfixExpression)
 	p.registerInfix(token.NOT_EQ, p.parseInfixExpression)
 	p.registerInfix(token.LT, p.parseInfixExpression)
@@ -151,6 +153,8 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseConstStatement()
 	case token.RETURN:
 		return p.parseReturnStatement()
+	case token.IMPORT:
+		return p.parseImportStatement()
 	default:
 		return p.parseExpressionStatement()
 	}
@@ -595,4 +599,24 @@ func (p *Parser) parseAssignmentExpression(left ast.Expression) ast.Expression {
 	expr.Value = p.parseExpression(LOWEST)
 
 	return expr
+}
+
+// parseImportStatement parses an import statement
+func (p *Parser) parseImportStatement() *ast.ImportStatement {
+	stmt := &ast.ImportStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	if p.curToken.Type != token.STRING {
+		p.errors = append(p.errors, fmt.Sprintf("expected string as import path, got %s", p.curToken.Type))
+		return nil
+	}
+
+	stmt.Path = &ast.StringLiteral{Token: p.curToken, Value: p.curToken.Literal}
+
+	if p.peekTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
+
+	return stmt
 }

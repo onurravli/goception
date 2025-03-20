@@ -1,0 +1,3 @@
+// A very simple file for import testing
+const x = 5;
+const y = 10; 

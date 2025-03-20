@@ -1,0 +1,27 @@
+// String utility functions
+
+// Convert a string to uppercase (simple version - just for demo)
+const toUpper = function(str) {
+  return "UPPERCASE: " + str;
+};
+
+// Convert a string to lowercase (simple version - just for demo)
+const toLower = function(str) {
+  return "lowercase: " + str;
+};
+
+// Repeat a string n times
+const repeat = function(str, n) {
+  var result = "";
+  
+  const doRepeat = function(count) {
+    if (count <= 0) {
+      return result;
+    }
+    
+    result = result + str;
+    return doRepeat(count - 1);
+  };
+  
+  return doRepeat(n);
+}; 

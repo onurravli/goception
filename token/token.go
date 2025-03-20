@@ -28,6 +28,7 @@ const (
 	BANG     = "!"
 	ASTERISK = "*"
 	SLASH    = "/"
+	MODULO   = "%"
 	LT       = "<"
 	GT       = ">"
 	EQ       = "=="
@@ -55,6 +56,7 @@ const (
 	RETURN   = "RETURN"
 	TRUE     = "TRUE"
 	FALSE    = "FALSE"
+	IMPORT   = "IMPORT"
 
 	// Types
 	TYPE_INT    = "INT_TYPE"
@@ -73,6 +75,7 @@ var keywords = map[string]TokenType{
 	"return":   RETURN,
 	"true":     TRUE,
 	"false":    FALSE,
+	"import":   IMPORT,
 
 	// Types
 	"int":    TYPE_INT,

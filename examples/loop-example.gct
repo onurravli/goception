@@ -1,0 +1,51 @@
+// Loop example using recursion
+const sum = function(n) {
+  const sumHelper = function(current, acc) {
+    if (current > n) {
+      return acc;
+    } else {
+      return sumHelper(current + 1, acc + current);
+    }
+  };
+  
+  return sumHelper(1, 0);
+};
+
+// Test with sum of numbers 1 to 10
+var total = sum(10);
+print("Sum of numbers 1 to 10: " + total);
+
+// Another example: countdown
+const countdown = function(from) {
+  if (from <= 0) {
+    print("Blast off!");
+  } else {
+    print(from);
+    countdown(from - 1);
+  }
+};
+
+print("Counting down:");
+countdown(5);
+
+// Print multiplication table using recursion
+const multiplyRow = function(i, j, max) {
+  if (j > max) {
+    return 0;
+  }
+  
+  print(i + " * " + j + " = " + (i * j));
+  return multiplyRow(i, j + 1, max);
+};
+
+const multiplyTable = function(i, max) {
+  if (i > max) {
+    return 0;
+  }
+  
+  multiplyRow(i, 1, max);
+  return multiplyTable(i + 1, max);
+};
+
+print("Multiplication table 3x3:");
+multiplyTable(1, 3); 

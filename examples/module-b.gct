@@ -1,0 +1,7 @@
+// Module B
+const messageB = "Hello from Module B";
+
+// This creates a circular import
+import "module-a.gct";
+
+print("Module B loaded"); 

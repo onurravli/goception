@@ -1,0 +1,12 @@
+// Module A
+const messageA = "Hello from Module A";
+
+// Import Module B
+import "module-b.gct";
+
+// Function that uses something from Module B
+const combineMessages = function() {
+  return messageA + " and " + messageB;
+};
+
+print("Module A loaded"); 

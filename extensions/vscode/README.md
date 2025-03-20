@@ -24,6 +24,10 @@ This is an early version of the extension. Please report any issues to the repos
 
 ## Release Notes
 
+### 1.0.0
+
+Add import support.
+
 ### 0.0.1
 
 Initial release of Goception language support

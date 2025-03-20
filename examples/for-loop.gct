@@ -1,0 +1,42 @@
+// Basic for loop example
+const sum = fn(n) {
+  var result = 0;
+  
+  // Loop from 1 to n
+  for (var i = 1; i <= n; i = i + 1) {
+    result = result + i;
+  }
+  
+  return result;
+};
+
+// Test with sum of numbers 1 to 10
+var total = sum(10);
+puts("Sum of numbers 1 to 10: " + total);
+
+// For loop with break statement
+const findFirstMultipleOf = fn(n, max) {
+  for (var i = 1; i <= max; i = i + 1) {
+    if (i % n == 0) {
+      return i;
+    }
+  }
+  return 0;
+};
+
+var firstMultipleOf7 = findFirstMultipleOf(7, 100);
+puts("First multiple of 7: " + firstMultipleOf7);
+
+// Nested for loops
+const multiplicationTable = fn(n) {
+  for (var i = 1; i <= n; i = i + 1) {
+    var row = "";
+    for (var j = 1; j <= n; j = j + 1) {
+      row = row + (i * j) + "\t";
+    }
+    puts(row);
+  }
+};
+
+puts("Multiplication table 5x5:");
+multiplicationTable(5); 

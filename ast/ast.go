@@ -394,3 +394,25 @@ type TypeAnnotation struct {
 func (ta *TypeAnnotation) expressionNode()      {}
 func (ta *TypeAnnotation) TokenLiteral() string { return ta.Token.Literal }
 func (ta *TypeAnnotation) String() string       { return ta.Value }
+
+// ImportStatement represents an import statement - e.g., import "filename.gct";
+type ImportStatement struct {
+	Token token.Token // the 'import' token
+	Path  *StringLiteral
+}
+
+func (is *ImportStatement) statementNode()       {}
+func (is *ImportStatement) TokenLiteral() string { return is.Token.Literal }
+func (is *ImportStatement) String() string {
+	var out bytes.Buffer
+
+	out.WriteString(is.TokenLiteral() + " ")
+
+	if is.Path != nil {
+		out.WriteString(is.Path.String())
+	}
+
+	out.WriteString(";")
+
+	return out.String()
+}

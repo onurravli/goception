@@ -1,6 +1,8 @@
 package lexer
 
 import (
+	"strings"
+
 	"github.com/onurravli/goception/token"
 )
 
@@ -117,6 +119,8 @@ func (l *Lexer) NextToken() token.Token {
 		} else {
 			tok = newToken(token.SLASH, l.ch)
 		}
+	case '%':
+		tok = newToken(token.MODULO, l.ch)
 	case '<':
 		if l.peekChar() == '=' {
 			ch := l.ch
@@ -179,14 +183,29 @@ func (l *Lexer) NextToken() token.Token {
 
 // readString reads a string enclosed in double quotes
 func (l *Lexer) readString() string {
-	position := l.position + 1
+	// Skip the opening quote
+	l.readChar()
+
+	// Read the string content, handling escape sequences if needed
+	var result strings.Builder
+
 	for {
-		l.readChar()
-		if l.ch == '"' || l.ch == 0 {
+		if l.ch == 0 {
+			// End of file before closing quote
 			break
 		}
+
+		if l.ch == '"' {
+			break
+		}
+
+		// Add the character to the result
+		result.WriteByte(l.ch)
+		l.readChar()
 	}
-	return l.input[position:l.position]
+
+	// Return the full string
+	return result.String()
 }
 
 // readIdentifier reads an identifier and advances the lexer's position

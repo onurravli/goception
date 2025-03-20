@@ -169,6 +169,7 @@ func (e *Environment) SetConst(name string, val Object) Object {
 	return val
 }
 
+// Reassign reassigns a variable in the environment
 func (e *Environment) Reassign(name string, val Object) bool {
 	if _, ok := e.store[name]; ok {
 		// If variable exists in current environment
@@ -188,4 +189,16 @@ func (e *Environment) Reassign(name string, val Object) bool {
 	e.store[name] = val
 	e.constants[name] = false
 	return true
+}
+
+// ExportTo copies all variables from this environment to the target environment
+func (e *Environment) ExportTo(target *Environment) {
+	// Copy all variables from current environment to target
+	for name, val := range e.store {
+		if e.constants[name] {
+			target.SetConst(name, val)
+		} else {
+			target.Set(name, val)
+		}
+	}
 }
