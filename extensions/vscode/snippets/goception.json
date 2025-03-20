@@ -1,0 +1,66 @@
+{
+  "Variable Declaration": {
+    "prefix": "var",
+    "body": ["var ${1:name}: ${2:type} = ${3:value};"],
+    "description": "Declare a new variable"
+  },
+  "Constant Declaration": {
+    "prefix": "const",
+    "body": ["const ${1:NAME}: ${2:type} = ${3:value};"],
+    "description": "Declare a new constant"
+  },
+  "Function Declaration": {
+    "prefix": "function",
+    "body": [
+      "const ${1:functionName} = function(${2:parameters}): ${3:returnType} {",
+      "\t${4:// function body}",
+      "\treturn ${5:result};",
+      "};"
+    ],
+    "description": "Declare a new function"
+  },
+  "If Statement": {
+    "prefix": "if",
+    "body": ["if (${1:condition}) {", "\t${2:// code to execute}", "}"],
+    "description": "If statement"
+  },
+  "If-Else Statement": {
+    "prefix": "ifelse",
+    "body": [
+      "if (${1:condition}) {",
+      "\t${2:// code to execute if true}",
+      "} else {",
+      "\t${3:// code to execute if false}",
+      "}"
+    ],
+    "description": "If-else statement"
+  },
+  "Print": {
+    "prefix": "print",
+    "body": ["print(${1:expression});"],
+    "description": "Print to console"
+  },
+  "Type Annotation": {
+    "prefix": "type",
+    "body": ["${1:name}: ${2|int,string,bool,function|}"],
+    "description": "Add a type annotation"
+  },
+  "Factorial Function": {
+    "prefix": "factorial",
+    "body": [
+      "const factorial = function(n: int): int {",
+      "\tif (n <= 1) {",
+      "\t\treturn 1;",
+      "\t} else {",
+      "\t\treturn n * factorial(n - 1);",
+      "\t}",
+      "};"
+    ],
+    "description": "Recursive factorial function"
+  },
+  "String Concatenation": {
+    "prefix": "concat",
+    "body": ["${1:string1} + ${2:string2}"],
+    "description": "Concatenate strings"
+  }
+}

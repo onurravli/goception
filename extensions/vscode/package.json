@@ -1,0 +1,74 @@
+{
+  "name": "goception-vscode",
+  "displayName": "Goception Language Support",
+  "description": "Syntax highlighting and language support for Goception",
+  "version": "0.1.0",
+  "publisher": "goception-team",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "goception",
+        "aliases": [
+          "Goception",
+          "goception"
+        ],
+        "extensions": [
+          ".gct"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "goception",
+        "scopeName": "source.goception",
+        "path": "./syntaxes/goception.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "goception",
+        "path": "./snippets/goception.json"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onLanguage:goception"
+  ],
+  "main": "./extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "echo 'No compilation needed for this extension'",
+    "watch": "echo 'No watch mode available for this extension'",
+    "test": "echo 'No tests available for this extension'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onurravli/goception.git"
+  },
+  "keywords": [
+    "goception",
+    "language",
+    "syntax",
+    "highlighting",
+    "snippet"
+  ],
+  "author": "Goception Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/onurravli/goception/issues"
+  },
+  "homepage": "https://github.com/onurravli/goception",
+  "type": "commonjs"
+}
